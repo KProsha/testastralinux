@@ -77,11 +77,8 @@ Window {
             }
         }
 
-        Component{
-            id:monthWeatherPage
-            MonthWeather{
-                id:monthWeather
-            }
+        LocationDialog{
+            id: locationDialog
         }
     }
 }

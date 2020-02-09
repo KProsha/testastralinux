@@ -6,7 +6,9 @@ import QtQuick.Controls 2.3
 Row {
     spacing: 20
     ButtonGroup {
-        buttons: [todayButton, threedaysButton, tendaysButton, weekButton, monthButton]
+        id: dateSelectorButtonGroup
+        buttons: [todayButton, threedaysButton, tendaysButton, weekButton]
+
 
     }
 
@@ -47,16 +49,6 @@ Row {
 
         onClicked: {
             weatherStackView.push(tenDaysWeatherPage)
-        }
-    }
-
-    Button {
-        id: monthButton
-        text: qsTr("Month")
-        checkable: true
-
-        onClicked: {
-            weatherStackView.push(monthWeatherPage)
         }
     }
 }

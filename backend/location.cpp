@@ -5,6 +5,7 @@
 #include <QJsonArray>
 #include <QJsonValue>
 #include <QJsonObject>
+#include <QTextStream>
 
 Location::Location(QObject *parent) : QObject(parent)
 {
@@ -18,7 +19,7 @@ bool Location::readCountryCode(const QString& fileName)
   QFile jsonFile(fileName);
   if (!jsonFile.open(QIODevice::ReadOnly))
   {
-      return false;
+    return false;
   }
 
   QByteArray jsonData = jsonFile.readAll();
@@ -43,35 +44,61 @@ bool Location::readCountryCode(const QString& fileName)
   return true;
 }
 //------------------------------------------------------------------------------
-bool Location::readCityCode(const QString& fileName)
+bool Location::readCityCode(const QString& countryCode, const QString &namePart)
 {
-  countryCode.clear();
+  selectedCities.clear();
 
-  QFile jsonFile(fileName);
+  QFile jsonFile(cityCodeFileName);
   if (!jsonFile.open(QIODevice::ReadOnly))
   {
-      return false;
+    return false;
   }
 
-  QByteArray jsonData = jsonFile.readAll();
+  QTextStream fileStream(&jsonFile);
 
-  QJsonParseError error;
-  QJsonDocument jsonDocument(QJsonDocument::fromJson(jsonData,&error));
+  QString Line = jsonFile.readLine();
 
-  if(error.error != QJsonParseError::NoError) return false;
+  // ----- Read all file -----
+  while(fileStream.readLineInto(&Line)){
 
-  QJsonArray documentArray = jsonDocument.array();
-  foreach(QJsonValue cityValue, documentArray){
-    QJsonObject cityObject = cityValue.toObject();
 
-    int id            = cityObject.value("id").toInt(-1);
-    QString name      = cityObject.value("name").toString();
-    QString country   = cityObject.value("country").toString();
-    QJsonObject coord = cityObject.value("coord").toObject();
+    // ----- Read json object for city  -----
+    if(Line.trimmed() == "{") {
+      QByteArray  cityObjectString("{");
+      int braceCount = 2;
 
-    double coordLon = coord.value("lon").toDouble(-1);
-    double coordLat = coord.value("lat").toDouble(-1);
+      while(fileStream.readLineInto(&Line)){
+        QString trimmedLine = Line.trimmed();
+        if(trimmedLine.isEmpty()) continue;
 
+        if (trimmedLine.at(0) == "}" )
+          --braceCount;
+
+        if(braceCount == 0) break;
+
+        cityObjectString.append(trimmedLine);
+      }
+      cityObjectString.append("}");
+
+      QJsonParseError error;
+      QJsonDocument jsonDocument(QJsonDocument::fromJson(cityObjectString,&error));
+
+      if(error.error != QJsonParseError::NoError) continue;
+
+      QJsonObject cityObject = jsonDocument.object();
+
+      auto city = QSharedPointer<City>(new City);
+
+      city->id      = cityObject.value("id").toInt(-1);
+      city->name    = cityObject.value("name").toString();
+      city->country = cityObject.value("country").toString();
+
+      if(city->country != countryCode) continue;
+      if(!city->name.startsWith(namePart)) continue;
+
+      selectedCities.append(city);
+
+    }
   }
 
   return true;

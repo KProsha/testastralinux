@@ -11,15 +11,20 @@ int main(int argc, char *argv[])
 
   QGuiApplication app(argc, argv);
 
+  // ----- Location -----
   Location location;
 
   if(!location.readCountryCode(QStringLiteral("country.code.json"))){
     qCritical("Country code read error");
   }
 
+  location.setCityCodeFilename("city.list.json");
+  location.readCityCode("RU", "Kal");
 
+  // ----- Options -----
   Options options("config.ini");
 
+  // -----  -----
 
   qmlRegisterUncreatableType<Options>("Options", 1, 0, "Options","Error:Options was created in QML");
 

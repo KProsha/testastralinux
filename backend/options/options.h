@@ -16,7 +16,9 @@ public:
   void load();
   void save();
 
-  const QString& getAppId(){return appId;}
+  const QString& getAppId()const{return appId;}
+
+  static Options& i(){return *instance;}
 
 signals:
   void sigAppIdChanged();
@@ -24,6 +26,7 @@ signals:
 protected:
   QString appId;
 
+  static Options* instance;
 
 };
 

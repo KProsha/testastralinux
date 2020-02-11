@@ -77,8 +77,11 @@ Window {
             }
         }
 
-        LocationDialog{
-            id: locationDialog
+        Component{
+            id:locationPage
+            LocationDialog{
+                id:locationDialog
+            }
         }
     }
 }

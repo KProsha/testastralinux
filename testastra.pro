@@ -1,16 +1,27 @@
-QT += quick
+QT += quick network
 CONFIG += c++11
 
 DEFINES += QT_DEPRECATED_WARNINGS
 
 HEADERS += \
-    options/options.h \
-    backend/location.h
+    backend/options/options.h \
+    backend/models/locationmodel.h \
+    backend/models/countrymodel.h \
+    backend/options/useroptions.h \
+    backend/network.h \
+    backend/types/location.h \
+    backend/backend.h
+
 
 SOURCES += \
     main.cpp \
-    options/options.cpp \
-    backend/location.cpp
+    backend/options/options.cpp \
+    backend/models/locationmodel.cpp \
+    backend/models/countrymodel.cpp \
+    backend/options/useroptions.cpp \
+    backend/network.cpp \
+    backend/backend.cpp
+
 
 RESOURCES += $$PWD/resources/qml.qrc
 

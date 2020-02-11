@@ -1,10 +1,12 @@
 #include "options.h"
 
+Options* Options::instance = nullptr;
+
 Options::Options(const QString& fileName, QObject *parent):
   QSettings(fileName,QSettings::IniFormat, parent)
-{
-
-  load();
+{  
+  load();  
+  instance = this;
 }
 //------------------------------------------------------------------------------
 Options::~Options()

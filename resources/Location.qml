@@ -3,10 +3,10 @@ import QtQuick.Controls 2.3
 
 
 
-Button {
+Button {   
     Text {
-        id: name
-        text: qsTr("Location")
+        id: locationText
+        text: qsTr("Unknoun location")
 
         anchors.leftMargin: 10
 
@@ -16,10 +16,14 @@ Button {
         anchors.fill: parent
     }
 
+    function getCurrentLocationFromModel(){
+        locationText.text = locationModel.getCurrentLocationName() ;
+    }
+
     onClicked: {
 
         locationDialog:visible = true
-        weatherStackView.push(locationDialog)
+        weatherStackView.push(locationPage)
     }
 }
 

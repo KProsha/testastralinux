@@ -1,9 +1,11 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QtQml>
+#include <QPalette>
 
-#include "options/options.h"
-#include "backend/location.h"
+#include "backend/backend.h"
+
+
 
 int main(int argc, char *argv[])
 {
@@ -11,26 +13,28 @@ int main(int argc, char *argv[])
 
   QGuiApplication app(argc, argv);
 
-  // ----- Location -----
-  Location location;
+  Backend backend;
 
-  if(!location.readCountryCode(QStringLiteral("country.code.json"))){
-    qCritical("Country code read error");
-  }
+//  QPalette palette = app.palette();
+//  palette.setColor(QPalette::Base,QColor("blue"));
 
-  location.setCityCodeFilename("city.list.json");
-  location.readCityCode("RU", "Kal");
+//  app.setPalette(palette);
 
-  // ----- Options -----
-  Options options("config.ini");
-
-  // -----  -----
 
   qmlRegisterUncreatableType<Options>("Options", 1, 0, "Options","Error:Options was created in QML");
+  qmlRegisterUncreatableType<UserOptions>("UserOptions", 1, 0, "UserOptions","Error:UserOptions was created in QML");
+  qmlRegisterUncreatableType<CountryModel>("CountryModel", 1, 0, "CountryModel","Error:CountryModel was created in QML");
+  qmlRegisterUncreatableType<LocationModel>("LocationModel", 1, 0, "LocationModel","Error:LocationModel was created in QML");
+  qmlRegisterUncreatableType<Network>("Network", 1, 0, "Network","Error:Network was created in QML");
+
 
   QQmlApplicationEngine engine;
 
-  engine.rootContext()->setContextProperty("options",&options);
+  engine.rootContext()->setContextProperty("options", backend.getOptions().data());
+  engine.rootContext()->setContextProperty("userOptions", backend.getUserOptions().data());
+  engine.rootContext()->setContextProperty("countryModel", backend.getCountryModel().data());
+  engine.rootContext()->setContextProperty("locationModel", backend.getLocationModel().data());
+  engine.rootContext()->setContextProperty("network", backend.getNetwork().data());
 
   engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
   if (engine.rootObjects().isEmpty())

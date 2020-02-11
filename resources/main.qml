@@ -10,7 +10,7 @@ Window {
     height: 480
     title: qsTr("Weather")
 
-    color: "#99CCFF"
+   // color: "#99CCFF"
 
     Location{
         id: location
@@ -64,16 +64,9 @@ Window {
         }
 
         Component{
-            id:weekWeatherPage
-            WeekWeather{
-                id:weekWeather
-            }
-        }
-
-        Component{
-            id:tenDaysWeatherPage
-            TenDaysWeather{
-                id:tenDaysWeather
+            id:fiveDaysWeatherPage
+            FiveDaysWeather{
+                id:fiveDaysWeather
             }
         }
 
@@ -84,4 +77,16 @@ Window {
             }
         }
     }
+
+    RoundButton {
+        id: updateButton
+        x: 555
+        height: 40
+        text: "Update"
+        anchors.top: location.bottom
+        anchors.topMargin: 10
+        anchors.right: parent.right
+        anchors.rightMargin: 10
+    }
 }
+

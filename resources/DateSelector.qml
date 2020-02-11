@@ -7,7 +7,7 @@ Row {
     spacing: 20
     ButtonGroup {
         id: dateSelectorButtonGroup
-        buttons: [todayButton, threedaysButton, tendaysButton, weekButton]
+        buttons: [todayButton, threedaysButton, fivedaysButton]
 
 
     }
@@ -33,22 +33,12 @@ Row {
     }
 
     Button {
-        id: weekButton
-        text: qsTr("Week")
+        id: fivedaysButton
+        text: qsTr("Five days")
         checkable: true
 
         onClicked: {
-            weatherStackView.push(weekWeatherPage)
-        }
-    }
-
-    Button {
-        id: tendaysButton
-        text: qsTr("Ten days")
-        checkable: true
-
-        onClicked: {
-            weatherStackView.push(tenDaysWeatherPage)
+            weatherStackView.push(fiveDaysWeatherPage)
         }
     }
 }

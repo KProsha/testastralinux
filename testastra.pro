@@ -10,7 +10,9 @@ HEADERS += \
     backend/options/useroptions.h \
     backend/network.h \
     backend/types/location.h \
-    backend/backend.h
+    backend/backend.h \
+    backend/models/weathermodel.h \
+    backend/types/weather.h
 
 
 SOURCES += \
@@ -20,7 +22,8 @@ SOURCES += \
     backend/models/countrymodel.cpp \
     backend/options/useroptions.cpp \
     backend/network.cpp \
-    backend/backend.cpp
+    backend/backend.cpp \
+    backend/models/weathermodel.cpp
 
 
 RESOURCES += $$PWD/resources/qml.qrc

@@ -19,20 +19,24 @@ public:
   QVariant data(const QModelIndex &index, int role) const override;
   QHash<int, QByteArray> roleNames() const override;
 
-  void setLocations(QList<QSharedPointer<Location> > list);
 
-  Q_INVOKABLE int getCurrentIndex() const;
-  Q_INVOKABLE void setCurrentIndex(int value);
+
+  Q_INVOKABLE void createCurrentLocation(int id, const QString& name, const QString& country);
+
+  Q_INVOKABLE void setCurrentLocationByIndex(int value);
 
   Q_INVOKABLE QSharedPointer<Location> getCurrentLocation();
   Q_INVOKABLE int getCurrentLocationId();
   Q_INVOKABLE QString getCurrentLocationName();
 
+public slots:
+  void setLocations(QList<QSharedPointer<Location> > list);
+
 protected:
 
   QList<QSharedPointer<Location> > locations;
 
-  int currentIndex;
+  QSharedPointer<Location> currentLocation;
 
 
 

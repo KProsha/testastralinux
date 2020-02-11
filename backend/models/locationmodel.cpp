@@ -10,7 +10,7 @@
 
 LocationModel::LocationModel():QAbstractListModel()
 {
-  currentIndex = -1;
+  currentLocation = QSharedPointer<Location>(nullptr);
 }
 //------------------------------------------------------------------------------
 int LocationModel::rowCount(const QModelIndex& index) const
@@ -42,7 +42,7 @@ QHash<int, QByteArray> LocationModel::roleNames() const
 {
   return { {Qt::DisplayRole, "display"}, {Qt::UserRole, "locationNumber"}  };
 }
-
+//------------------------------------------------------------------------------
 void LocationModel::setLocations(QList<QSharedPointer<Location> > list)
 {
   beginResetModel();
@@ -54,22 +54,36 @@ void LocationModel::setLocations(QList<QSharedPointer<Location> > list)
   endResetModel();
 }
 //------------------------------------------------------------------------------
-int LocationModel::getCurrentIndex() const
+void LocationModel::createCurrentLocation(int id, const
+                                          QString &name,
+                                          const QString &country)
 {
-  return currentIndex;
+  if(id < 0 ){
+      currentLocation = QSharedPointer<Location>(nullptr);
+      return;
+  }
+
+  currentLocation = QSharedPointer<Location>(new Location());
+
+  currentLocation->id = id;
+  currentLocation->name = name;
+  currentLocation->country = country;
+
 }
 //------------------------------------------------------------------------------
-void LocationModel::setCurrentIndex(int value)
+void LocationModel::setCurrentLocationByIndex(int value)
 {
-  currentIndex = value;
+  if((value < 0) || (value >= locations.size())){
+      currentLocation = QSharedPointer<Location>(nullptr);
+      return;
+  }
+
+  currentLocation = locations.at(value);
 }
 //------------------------------------------------------------------------------
 QSharedPointer<Location> LocationModel::getCurrentLocation()
 {
-  if((currentIndex < 0) || (currentIndex >= locations.size()))
-      return QSharedPointer<Location>(nullptr);
-
-  return locations.at(currentIndex);
+  return currentLocation;
 }
 //------------------------------------------------------------------------------
 int LocationModel::getCurrentLocationId()

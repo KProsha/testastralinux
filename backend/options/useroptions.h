@@ -17,9 +17,18 @@ public:
   Q_INVOKABLE int getCountryIndex() const;
   Q_INVOKABLE void setCountryIndex(int value);
 
+  Q_INVOKABLE QString getLocationName() const;
+  Q_INVOKABLE void setLocationName(const QString &value);
+
+  Q_INVOKABLE int getLocationId() const;
+  Q_INVOKABLE void setLocationId(int value);
+
 protected:
 
   int countryIndex;
+
+  QString locationName;
+  int locationId;
 
 };
 

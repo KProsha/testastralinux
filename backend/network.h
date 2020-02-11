@@ -7,6 +7,7 @@
 #include <QUrl>
 
 #include "types/location.h"
+#include "types/weather.h"
 
 class Network : public QNetworkAccessManager
 {
@@ -14,18 +15,31 @@ class Network : public QNetworkAccessManager
 public:
   Network();
 
-  Q_INVOKABLE void openweathermapQuery(const QString& text);
-
+  Q_INVOKABLE void locationQuery(const QString& text);
+  Q_INVOKABLE void weatherQuery(const QString& text);
 
 signals:
-  Q_INVOKABLE void sigNewLocations(QList<QSharedPointer<Location> >  );
-
+  void sigNewLocations(QList<QSharedPointer<Location> >  );
+  void sigNewWeather(QList<QSharedPointer<Weather> >  );
 
 private slots:
 
-    void parce(QNetworkReply* reply);
+  void parce(QNetworkReply* reply);
 
+protected:
 
+  enum EState{
+    StateNotBusy,
+    StateLocationQuery,
+    StateWeatherQuery
+  };
+
+  EState state;
+
+  void openweathermapQuery(const QString& text);
+
+  void parceLocation(QNetworkReply* reply);
+  void parceWeather(QNetworkReply* reply);
 
 
 };

@@ -11,14 +11,14 @@ Rectangle{
 
     Button {
         id: applyButton
-        x: 540
-        y: 418
+        x: 397
+        y: 443
         height: 30
         text: qsTr("Apply")
         focusPolicy: Qt.NoFocus
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 10
-        anchors.right: parent.right
+        anchors.right: cancelButton.left
         anchors.rightMargin: 10
 
         onClicked: {
@@ -26,6 +26,23 @@ Rectangle{
             weatherStackView.push(todayWeatherPage)
         }
 
+    }
+
+    Button {
+        id: cancelButton
+        x: 514
+        y: 443
+        height: 30
+        text: qsTr("Cancel")
+        anchors.bottomMargin: 10
+        anchors.right: parent.right
+        anchors.rightMargin: 10
+        focusPolicy: Qt.NoFocus
+        anchors.bottom: parent.bottom
+
+        onClicked: {
+            weatherStackView.push(todayWeatherPage)
+        }
     }
 
     ComboBox {
@@ -107,7 +124,7 @@ Rectangle{
                             "," +
                             countryModel.getCountryCode(countryComboBox.currentIndex);
 
-            network.openweathermapQuery(queryOptions);
+            network.locationQuery(queryOptions);
 
         }
     }
@@ -138,7 +155,7 @@ Rectangle{
                 onClicked: {
                     cityEdit.text = display;
 
-                    locationModel.setCurrentIndex(locationNumber);
+                    locationModel.setCurrentLocationByIndex(locationNumber);
                     searchItemVisible = false;
                 }
             }
@@ -164,6 +181,7 @@ Rectangle{
             searchItemVisible = true;
         }
     }
+
     states: [
         State {
             name: "locationSearch"; when: searchItemVisible == true;
@@ -182,48 +200,3 @@ Rectangle{
         }
     ]
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*##^## Designer {
-    D{i:2;anchors_x:86;anchors_y:8}D{i:3;anchors_x:24;anchors_y:8}D{i:4;anchors_x:24;anchors_y:8}
-D{i:5;anchors_x:90;anchors_y:50}D{i:6;anchors_x:90;anchors_y:92}D{i:7;anchors_height:160;anchors_width:110;anchors_x:95;anchors_y:135}
-D{i:11;anchors_x:90;anchors_y:92}
-}
- ##^##*/

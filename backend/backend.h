@@ -7,6 +7,7 @@
 #include "backend/options/useroptions.h"
 #include "backend/models/locationmodel.h"
 #include "backend/models/countrymodel.h"
+#include "backend/models/weathermodel.h"
 #include "backend/network.h"
 
 class Backend : public QObject
@@ -26,13 +27,13 @@ protected:
   // ----- Location -----
   QSharedPointer<CountryModel> countryModel;
   QSharedPointer<LocationModel> locationModel;
-
   // ----- Options -----
   QSharedPointer<Options> options;
   QSharedPointer<UserOptions> userOptions;
   // -----  -----
   QSharedPointer<Network> network;
   // -----  -----
+  QSharedPointer<WeatherModel> weatherModel;
 };
 
 

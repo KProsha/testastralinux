@@ -2,10 +2,9 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>DateSelector.qml</file>
-        <file>TenDaysWeather.qml</file>
+        <file>FiveDaysWeather.qml</file>
         <file>ThreeDaysWeather.qml</file>
         <file>TodayWeather.qml</file>
-        <file>WeekWeather.qml</file>
         <file>Location.qml</file>
         <file>LocationDialog.qml</file>
     </qresource>

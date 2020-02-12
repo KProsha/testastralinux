@@ -7,8 +7,10 @@
 #include "backend/options/useroptions.h"
 #include "backend/models/locationmodel.h"
 #include "backend/models/countrymodel.h"
-#include "backend/models/weathermodel.h"
+#include "backend/models/weathermodellist.h"
 #include "backend/network.h"
+
+
 
 class Backend : public QObject
 {
@@ -23,6 +25,9 @@ public:
   QSharedPointer<UserOptions> getUserOptions() const;
 
   QSharedPointer<Network> getNetwork() const;
+
+  QSharedPointer<WeatherModelList> getWeatherModel() const;
+
 protected:
   // ----- Location -----
   QSharedPointer<CountryModel> countryModel;
@@ -33,7 +38,7 @@ protected:
   // -----  -----
   QSharedPointer<Network> network;
   // -----  -----
-  QSharedPointer<WeatherModel> weatherModel;
+  QSharedPointer<WeatherModelList> weatherModel;
 };
 
 

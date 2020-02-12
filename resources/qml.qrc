@@ -7,5 +7,6 @@
         <file>TodayWeather.qml</file>
         <file>Location.qml</file>
         <file>LocationDialog.qml</file>
+        <file>DayWeatherDelegate.qml</file>
     </qresource>
 </RCC>

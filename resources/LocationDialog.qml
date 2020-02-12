@@ -3,11 +3,22 @@ import QtQuick.Controls 2.3
 
 
 Rectangle{
-    color: "#99CCFF"
-
-  //  Component.onCompleted: visible = false
-
+    id: rectangle
     property bool  searchItemVisible: true
+
+    gradient: mainGradient
+
+    border.color: "black"
+    border.width: 1
+
+    BusyIndicator {
+        id: busyIndicatorLocation
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenter: parent.verticalCenter
+
+        running: network.busy
+
+    }
 
     Button {
         id: applyButton
@@ -197,6 +208,16 @@ Rectangle{
             PropertyChanges { target: citySearchButton; visible: false }
             PropertyChanges { target: citiesListView; visible: false }
             PropertyChanges { target: cityEdit; readOnly: true }
+
+            PropertyChanges {
+                target: rectangle
+                color: "#00000000"
+                border.color: "#00000000"
+            }
         }
     ]
 }
+
+
+
+

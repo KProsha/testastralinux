@@ -12,15 +12,22 @@
 class Network : public QNetworkAccessManager
 {
   Q_OBJECT
+
+  Q_PROPERTY(bool busy READ isBusy NOTIFY sigBusyChanged)
+
 public:
   Network();
 
   Q_INVOKABLE void locationQuery(const QString& text);
   Q_INVOKABLE void weatherQuery(const QString& text);
 
+  bool isBusy();
+
 signals:
   void sigNewLocations(QList<QSharedPointer<Location> >  );
   void sigNewWeather(QList<QSharedPointer<Weather> >  );
+
+  void sigBusyChanged();
 
 private slots:
 
@@ -35,6 +42,8 @@ protected:
   };
 
   EState state;
+
+  void setState(EState newState);
 
   void openweathermapQuery(const QString& text);
 

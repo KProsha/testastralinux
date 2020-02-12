@@ -27,6 +27,8 @@ int main(int argc, char *argv[])
   qmlRegisterUncreatableType<LocationModel>("LocationModel", 1, 0, "LocationModel","Error:LocationModel was created in QML");
   qmlRegisterUncreatableType<Network>("Network", 1, 0, "Network","Error:Network was created in QML");
 
+  qmlRegisterUncreatableType<WeatherModel>("OneDayWeatherModel", 1, 0, "OneDayWeatherModel","Error:OneDayWeatherModel was created in QML");
+
 
   QQmlApplicationEngine engine;
 
@@ -35,6 +37,15 @@ int main(int argc, char *argv[])
   engine.rootContext()->setContextProperty("countryModel", backend.getCountryModel().data());
   engine.rootContext()->setContextProperty("locationModel", backend.getLocationModel().data());
   engine.rootContext()->setContextProperty("network", backend.getNetwork().data());
+
+  engine.rootContext()->setContextProperty("oneDayWeatherModel",
+                                           backend.getWeatherModel()->getOneDayWeatherModel().data());
+
+  engine.rootContext()->setContextProperty("threeDaysWeatherModel",
+                                           backend.getWeatherModel()->getThreeDaysWeatherModel().data());
+  engine.rootContext()->setContextProperty("fiveDaysWeatherModel",
+                                           backend.getWeatherModel()->getFiveDaysWeatherModel().data());
+
 
   engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
   if (engine.rootObjects().isEmpty())

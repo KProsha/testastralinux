@@ -2,9 +2,12 @@
 #define WEATHER_H
 
 #include <QDateTime>
+#include <QObject>
 
-class Weather
+class Weather: public QObject
 {
+ Q_OBJECT
+
 public:
   //-----   -----
   class Temperature
@@ -35,9 +38,6 @@ public:
 
   float snow;
   float rain;
-
-  bool isSnow;
-  bool isRain;
 
   QDateTime dateTime;
 

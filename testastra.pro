@@ -11,8 +11,9 @@ HEADERS += \
     backend/network.h \
     backend/types/location.h \
     backend/backend.h \
-    backend/models/weathermodel.h \
-    backend/types/weather.h
+    backend/types/weather.h \
+    backend/models/weathermodellist.h \
+    backend/models/weathermodel.h
 
 
 SOURCES += \
@@ -23,6 +24,7 @@ SOURCES += \
     backend/options/useroptions.cpp \
     backend/network.cpp \
     backend/backend.cpp \
+    backend/models/weathermodellist.cpp \
     backend/models/weathermodel.cpp
 
 

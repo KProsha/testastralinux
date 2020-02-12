@@ -11,13 +11,13 @@ Backend::Backend(QObject *parent) : QObject(parent)
   // -----  -----
   network = QSharedPointer<Network>(new Network());
   // -----  -----
-  weatherModel = QSharedPointer<WeatherModel>(new WeatherModel());
+  weatherModel = QSharedPointer<WeatherModelList>(new WeatherModelList());
   // ----- Connections -----
   connect(network.data(), &Network::sigNewLocations,
           locationModel.data(), &LocationModel::setLocations);
 
   connect(network.data(), &Network::sigNewWeather,
-          weatherModel.data(), &WeatherModel::setWeather);
+          weatherModel.data(), &WeatherModelList::setWeather);
 
   // ----- Load -----
   countryModel->loadFromFile(QStringLiteral("country.code.json"));
@@ -26,6 +26,11 @@ Backend::Backend(QObject *parent) : QObject(parent)
 QSharedPointer<Network> Backend::getNetwork() const
 {
   return network;
+}
+//------------------------------------------------------------------------------
+QSharedPointer<WeatherModelList> Backend::getWeatherModel() const
+{
+  return weatherModel;
 }
 //------------------------------------------------------------------------------
 QSharedPointer<UserOptions> Backend::getUserOptions() const

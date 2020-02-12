@@ -3,11 +3,31 @@ import QtQuick.Controls 2.3
 
 
 
-Button {
+ListView {
+    id: todayWeatherListView
+    clip: true
 
-    text: qsTr("five days")
+
+    delegate: DayWeatherDelegate{
+        dateTime:  dateTimeRole
+        temp: tempRole
+        feelsLike: feelsLikeTempRole
+
+        pressure: pressureRole
+        humidity: humidityRole
+
+        description: descriptionRole
+
+        cloudPercentage: cloudPercentageRole
+
+        windSpeed: windSpeedRole
+        windAngle: windAngleRole
+
+        snow: snowRole
+        rain: rainRole
+    }
+
+    model:fiveDaysWeatherModel
 }
-
-
 
 

@@ -8,8 +8,6 @@ Row {
     ButtonGroup {
         id: dateSelectorButtonGroup
         buttons: [todayButton, threedaysButton, fivedaysButton]
-
-
     }
 
     Button {

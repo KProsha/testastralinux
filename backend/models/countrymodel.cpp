@@ -75,7 +75,7 @@ bool CountryModel::loadFromFile(const QString &fileName)
 //------------------------------------------------------------------------------
 QString CountryModel::getCountryCode(int pos)
 {
-  if(pos >= countryCode.size() ) return QString();
+  if((pos < 0) || (pos >= countryCode.size() ))return QString();
 
   return countryCode.at(pos).code;
 }

@@ -1,22 +1,48 @@
 #ifndef WEATHERMODEL_H
 #define WEATHERMODEL_H
 
-#include <QObject>
+#include <QAbstractListModel>
+#include <QSharedPointer>
+
 #include "../types/weather.h"
 
-class WeatherModel : public QObject
+#define DateTimeRole          Qt::UserRole
+
+#define TempRole              Qt::UserRole + 1
+#define FeelsLikeTempRole     Qt::UserRole + 2
+
+#define PressureRole          Qt::UserRole + 3
+#define HumidityRole          Qt::UserRole + 4
+
+#define DescriptionRole       Qt::UserRole + 5
+
+#define CloudPercentageRole   Qt::UserRole + 6
+
+#define WindSpeedRole         Qt::UserRole + 7
+#define WindAngleRole         Qt::UserRole + 8
+
+#define SnowRole              Qt::UserRole + 9
+#define RainRole              Qt::UserRole + 10
+
+class WeatherModel:public QAbstractListModel
 {
-  Q_OBJECT
+   Q_OBJECT
 public:
-  explicit WeatherModel(QObject *parent = nullptr);
+  WeatherModel(  const QList<QSharedPointer<Weather> >& weatherListPtr);
 
-signals:
+  int rowCount(const QModelIndex& index = QModelIndex()) const override;
 
-public slots:
-  void setWeather(QList<QSharedPointer<Weather> > list);
+  QVariant data(const QModelIndex &index, int role) const override;
+  QHash<int, QByteArray> roleNames() const override;
+
+
+  void updateData();
 
 protected:
-  QList<QSharedPointer<Weather> > weather;
+
+  const QList<QSharedPointer<Weather> >& weatherList;
+
+
 
 };
 

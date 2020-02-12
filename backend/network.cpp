@@ -10,7 +10,7 @@
 
 Network::Network():QNetworkAccessManager()
 {
-  state = StateNotBusy;
+  setState(StateNotBusy);
 
   connect(this, &Network::finished, this, &Network::parce);
 }
@@ -92,7 +92,7 @@ void Network::parceWeather(QNetworkReply *reply)
 
     //-----  -----
     QJsonObject mainObject = dayObject.value("main").toObject();
-    weatherPtr->temp.setKelvin         (static_cast<float>(mainObject.value("id").toDouble(0)));
+    weatherPtr->temp.setKelvin         (static_cast<float>(mainObject.value("temp").toDouble(0)));
     weatherPtr->feelsLikeTemp.setKelvin(static_cast<float>(mainObject.value("feels_like").toDouble(0)));
     weatherPtr->tempMin.setKelvin      (static_cast<float>(mainObject.value("temp_min").toDouble(0)));
     weatherPtr->tempMax.setKelvin      (static_cast<float>(mainObject.value("temp_max").toDouble(0)));
@@ -117,21 +117,14 @@ void Network::parceWeather(QNetworkReply *reply)
     //-----  -----
     QJsonObject snowObject = dayObject.value("snow").toObject();
     if(!snowObject.isEmpty()){
-      weatherPtr->snow = static_cast<float>(snowObject.value("3h").toDouble(0));
-      weatherPtr->isSnow = true;
-    }else {
-      weatherPtr->isSnow = false;
+      weatherPtr->snow = static_cast<float>(snowObject.value("3h").toDouble(0));     
     }
 
     //-----  -----
     QJsonObject rainObject = dayObject.value("rain").toObject();
     if(!rainObject.isEmpty()){
-      weatherPtr->rain = static_cast<float>(rainObject.value("3h").toDouble(0));
-      weatherPtr->isRain = true;
-    }else {
-      weatherPtr->isRain = false;
+      weatherPtr->rain = static_cast<float>(rainObject.value("3h").toDouble(0));      
     }
-
     //-----  -----
     weatherList.append(weatherPtr);
   }
@@ -143,7 +136,7 @@ void Network::locationQuery(const QString &text)
 {
   if(state != StateNotBusy) return;
 
-  state = StateLocationQuery;
+  setState(StateLocationQuery);
 
   openweathermapQuery(text);
 }
@@ -152,9 +145,16 @@ void Network::weatherQuery(const QString &text)
 {
   if(state != StateNotBusy) return;
 
-  state = StateWeatherQuery;
+  setState(StateWeatherQuery);
 
   openweathermapQuery(text);
+}
+//------------------------------------------------------------------------------
+bool Network::isBusy()
+{
+  if(state != StateNotBusy) return true;
+
+  return false;
 }
 //------------------------------------------------------------------------------
 void Network::parce(QNetworkReply* reply)
@@ -165,5 +165,11 @@ void Network::parce(QNetworkReply* reply)
   default: break;
   }
 
-  state = StateNotBusy;
+  setState(StateNotBusy);
+}
+//------------------------------------------------------------------------------
+void Network::setState(Network::EState newState)
+{
+  state = newState;
+  emit sigBusyChanged();
 }

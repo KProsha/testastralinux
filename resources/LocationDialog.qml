@@ -1,5 +1,5 @@
-import QtQuick 2.12
-import QtQuick.Controls 2.3
+import QtQuick 2.9
+import QtQuick.Controls 2.2
 
 
 Rectangle{
@@ -111,7 +111,7 @@ Rectangle{
         id: cityEdit
         width: 250
         height: 30
-        text: qsTr("Kaluga")
+        text:""
         visible: true
         anchors.left: countryLabel.right
         anchors.leftMargin: 10

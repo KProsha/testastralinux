@@ -15,12 +15,6 @@ int main(int argc, char *argv[])
 
   Backend backend;
 
-//  QPalette palette = app.palette();
-//  palette.setColor(QPalette::Base,QColor("blue"));
-
-//  app.setPalette(palette);
-
-
   qmlRegisterUncreatableType<Options>("Options", 1, 0, "Options","Error:Options was created in QML");
   qmlRegisterUncreatableType<UserOptions>("UserOptions", 1, 0, "UserOptions","Error:UserOptions was created in QML");
   qmlRegisterUncreatableType<CountryModel>("CountryModel", 1, 0, "CountryModel","Error:CountryModel was created in QML");

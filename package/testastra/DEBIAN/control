@@ -1,0 +1,7 @@
+Package: testastra
+Architecture: all
+Maintainer: @ForestDront
+Priority: optional
+Version: 0.1
+Description: Test weather widget. openweathermap.org  id required for usage
+Depends:  libqt5core5a (>=5.9.0), libqt5gui5(>=5.9.0), libqt5quick5(>=5.9.0), libqt5quickcontrols2-5(>=5.9.0), libqt5network5(>=5.9.0)

@@ -1,6 +1,7 @@
-import QtQuick 2.12
-import QtQuick.Window 2.12
-import QtQuick.Controls 2.3
+import QtQuick 2.9
+import QtQuick.Window 2.2
+import QtQuick.Controls 2.2
+
 
 
 Window {
@@ -13,7 +14,7 @@ Window {
 
     Gradient {
         id: mainGradient
-        orientation: Gradient.Horizontal
+       // orientation: Gradient.Horizontal
 
         GradientStop { position: 0.0; color: "#AAEEFF" }
         GradientStop { position: 1.0; color: "#66AAFF" }

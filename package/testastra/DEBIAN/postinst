@@ -1,0 +1,13 @@
+#!/bin/bash
+
+echo Enter your openweathermap.org id 
+
+read idarray
+
+mkdir -p /etc/testastra
+
+echo "Create config file: /etc/testastra/config.ini"
+
+echo -e  "[openweathermap.org] \n AppId=" $idarray   > /etc/testastra/config.ini
+
+ 

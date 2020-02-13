@@ -1,13 +1,18 @@
 #include "backend.h"
 
+#include <QDir>
+
 Backend::Backend(QObject *parent) : QObject(parent)
 {
   // ----- Location -----
   countryModel  = QSharedPointer<CountryModel>(new CountryModel());
   locationModel = QSharedPointer<LocationModel>(new LocationModel());
   // ----- Options -----
-  options     = QSharedPointer<Options>(new Options("config.ini"));
-  userOptions =  QSharedPointer<UserOptions>(new UserOptions ("useroptions.ini"));
+  QString optionsFileName = QDir::rootPath() + "etc/testastra/config.ini";
+  QString userOptionsFileName = QDir::homePath() + "/.config/testastra/useroptions.ini";
+
+  options     = QSharedPointer<Options>(new Options(optionsFileName));
+  userOptions =  QSharedPointer<UserOptions>(new UserOptions (userOptionsFileName));
   // -----  -----
   network = QSharedPointer<Network>(new Network());
   // -----  -----

@@ -8,5 +8,6 @@
         <file>Location.qml</file>
         <file>LocationDialog.qml</file>
         <file>DayWeatherDelegate.qml</file>
+        <file>country.code.json</file>
     </qresource>
 </RCC>

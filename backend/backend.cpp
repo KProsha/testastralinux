@@ -25,7 +25,7 @@ Backend::Backend(QObject *parent) : QObject(parent)
           weatherModel.data(), &WeatherModelList::setWeather);
 
   // ----- Load -----
-  countryModel->loadFromFile(QStringLiteral("country.code.json"));
+  countryModel->loadFromFile(QStringLiteral(":/country.code.json"));
 }
 //------------------------------------------------------------------------------
 QSharedPointer<Network> Backend::getNetwork() const
